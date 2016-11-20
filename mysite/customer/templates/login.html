@@ -9,23 +9,28 @@
 {% bootstrap_messages %}
 
 <style>
-div.login-form {
+div.login_form {
     margin-top: 200px
 } 
-.error input, .error select {
-    border: 2px red solid;
+.errorlist {
+    list-style: none;
+    color: red;
 }
-
 </style>
 {% block content %}
 
- {% if form.errors %}
- 	<p>Please check your password or username.</p>
- {% else %}
- 	<p></p>
- {% endif %}
-	<div class="login-form" align="center">
-		 <h2><center>TravelOne</center></h2>
+ 
+ <p></p>
+
+<center><body background="http://cfile29.uf.tistory.com/image/1557604C50ADABD31D7799"></center>
+
+	<div class="login_form" align="center">
+		 <h2><center>TravelOne {% bootstrap_icon "globe" %}</center></h2>
+		 {% if form.errors %}
+ 		<p><center><span style= "color:red">Please check your password or username.</span></center></p>
+ 		{% else %}
+ 		<p></p>
+ 		{% endif %}
 		 <br><br><br>
 			<form action="{% url 'login' %}" method="post" class="form">
 				
@@ -34,10 +39,11 @@ div.login-form {
 				</br>
 				<input type="hidden" name="next" value="{{ next }}" />
 			
-				<button type="submit" value="Log-in">Log-In</button>
+				<button type="submit" value="Log-in">{% bootstrap_icon "off" %} Log-In</button>
 
 
-				</br></br></br>
+
+				</br></br>
 				<p><a href="{% url "password_reset" %}">Forgotten your password?</a></p>
 				<p><a href="{% url "register" %}">Register here!</a></p>
 			</form>

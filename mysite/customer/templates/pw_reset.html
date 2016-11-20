@@ -1,11 +1,30 @@
+{# Load the tag library #}
+{% load bootstrap3 %}
 
+{# Load CSS and JavaScript #}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+
+{# Display django.contrib.messages as Bootstrap alerts #}
+{% bootstrap_messages %}
+
+<style>
+div.happy {
+    margin-top: 220px
+} 
+</style>
 {% block content %}
- <h1>Reset PassWord</h1>
-	<div class="login-form">
-			<form action="{% url 'password_reset' %}" method="post">
-				{{ form.as_p }}
-				{% csrf_token %}
-				<p><input type="submit" value="Request My new PassWord"></p>
-			</form>
-	</div>
+<center><body background="http://appdata.hungryapp.co.kr/data_file/data_img_m/201502/10/1423580240_Nr4eu5HZAs.jpg"></center>
+
+<div class="happy">
+ 	<h2><center>Reset Password {% bootstrap_icon "alert" %}</center></h2>
+ 	<br><br><br>
+		<div class="login-form">
+				<form action="{% url 'password_reset' %}" method="post">
+					<center>{{ form.as_p }}</center>
+					<br>
+					{% csrf_token %}
+					<p><center><input type="submit" value="Request My new PassWord"></center></p>
+				</form>
+		</div>
 {% endblock %}

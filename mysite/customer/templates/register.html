@@ -1,8 +1,29 @@
+{# Load the tag library #}
+{% load bootstrap3 %}
+
+{# Load CSS and JavaScript #}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+
+{# Display django.contrib.messages as Bootstrap alerts #}
+{% bootstrap_messages %}
+
+<style>
+div.jay_way {
+    margin-top: 200px
+} 
+</style>
 {% block content %}
- <h1>Registeration</h1>
- 	<form action ="." method = "post">
- 		{{form.as_p}}
- 		{% csrf_token %}
- 		<p><input type="submit" value="Done"></p>
- 	</form>
+<center><body background="http://cfile29.uf.tistory.com/image/1627D54D50AB0E0D294E79"></center>
+
+
+	<div class = "jay_way" align = "center">
+
+		 <h2><center>Registeration{% bootstrap_icon "user" %}<center></h2>
+		 <br><br><br>
+ 			<form action ="." method = "post">
+ 				{{form.as_p}}
+ 				{% csrf_token %}
+ 				<p><input type="submit" value="Done"></p>
+ 			</form>
 {% endblock %}

@@ -4,6 +4,9 @@ from .forms import *
 import pyrebase
 from django.contrib.sessions.models import Session
 from django.core.mail import EmailMessage
+
+import requests
+import json
 # Create your views here.
 def index(request):
 	return render(request, 'index.html')
@@ -32,6 +35,7 @@ def JoinGroup(request):
 		form = GetGroup(request.POST)
 		if form.is_valid():
 			code = form['groupID'].value()
+			request.session['GID'] = code
 			searched = False
 			for g in groups.each():
 				if g.key() == code:
@@ -41,7 +45,7 @@ def JoinGroup(request):
 					request.session['OWNER'] = owner
 					request.session['TITLE'] = myTitle
 					groupId = g.key()
-					request.session['GID'] = groupId
+				
 					data = {"inviteeName": request.session['myName']}
 					db.child("group").child(groupId).child("invitee").push(data)
 					print("myname: " ,request.session['myName'])
@@ -78,15 +82,20 @@ def GroupView(request):
 					groupID = u
 					myTitle = g.val()['title']
 					owner = g.val()['name']
+	print(groupID)
+
 	names = []
+	
 	for g in groups.each():
-		obj = g.val()
-		objj = obj.get('invitee')
-		key = objj.keys()
-		key = list(objj)
-		for i in range(0, len(key)):
-			names.append(objj[key[i]]['inviteeName'])
-    
+		if g.key() == request.session['GID']:
+			obj = g.val()
+			objj = obj.get('invitee')
+			key = objj.keys()
+			key = list(objj)
+			for i in range(0, len(key)):
+				names.append(objj[key[i]]['inviteeName'])
+	print(names)
+	print(request.session['GID'])
 	return render(request,'manage_group.html', {'gid':request.session['GID'], 'title':request.session['TITLE'], 'owner':request.session['OWNER'], 'names':names})
             
 
@@ -150,7 +159,9 @@ def login(request):
 							myName = value
 
 			request.session['uid'] = uid
-			request.session['myName'] = myName				
+			request.session['myName'] = myName
+
+
 
 			return render(request, 'login_done.html', {'myName': myName})
 	else:
