@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from .forms import *
 import pyrebase
-
+from django.contrib.sessions.models import Session
 # Create your views here.
 def index(request):
 	return render(request, 'index.html')
@@ -67,13 +67,38 @@ def login(request):
 						if key == "name":
 							myName = value
 
-
+			request.session['uid'] = uid
+			request.session['myName'] = myName				
 
 			return render(request, 'login_done.html', {'myName': myName})
 	else:
 		form = UserInfo()
 	return render(request, 'login.html', {'form': form})
+def makeGroup(request):
+	uid = request.session['uid']
+	config = {
+  	"apiKey": "AIzaSyDJBkHwuCdQuaeeS2GsZ8bYHoV8L2jbb2Q",
+  	"authDomain": "travelone-e43cb.firebaseapp.com",
+  	"databaseURL": "https://travelone-e43cb.firebaseio.com/",
+  	"storageBucket": "travelone-e43cb.appspot.com"
+	}
+	firebase = pyrebase.initialize_app(config)
 
+	# Get a reference to the auth service
+	auth = firebase.auth()
+	db = firebase.database()
+	myName = request.session['myName']
+	print("UID: ", uid)
+	if request.method == 'POST':
+		form = GroupForm(request.POST)
+		if form.is_valid():
+			title = form['groupTitle'].value()
+			data = {"groupOwnerUID" : uid, "title": title}
+			db.child("group").push(data)	
+			return render(request, 'group_done.html', {'title': title, 'myName' : myName})
+	else:
+		form = GroupForm()
+	return render(request, 'group.html', {'form': form, 'myName': myName})
 def register(request):
 	config = {
   	"apiKey": "AIzaSyDJBkHwuCdQuaeeS2GsZ8bYHoV8L2jbb2Q",

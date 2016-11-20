@@ -12,3 +12,6 @@ class UserInfo(forms.Form):
 
 class PasswordReset(forms.Form):
 	username = forms.CharField(widget = forms.EmailInput)
+
+class GroupForm(forms.Form):
+	groupTitle = forms.CharField()

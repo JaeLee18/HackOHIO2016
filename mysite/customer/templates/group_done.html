@@ -1,5 +1,26 @@
+{# Load the tag library #}
+{% load bootstrap3 %}
+
+{# Load CSS and JavaScript #}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+
+{# Display django.contrib.messages as Bootstrap alerts #}
+{% bootstrap_messages %}
+
+
+
 <!DOCTYPE html>
 <html lang="en">
+<style>
+div.login-form {
+    margin-top: 200px
+} 
+.error input, .error select {
+    border: 2px red solid;
+}
+
+</style>
 <head>
   <title>Bootstrap Case</title>
   <meta charset="utf-8">
@@ -28,6 +49,11 @@
   <h3>Good Day, {{myName}}!</h3>
   <p>Invite?, Group?, Bank?</p>
 </div>
-	
+	{% block content %}
+	<div class="login-form" align="center">
+		 <h2><center>TravelOne</center></h2>
+		 Your group {{title}} is created!
+	</div>
+{% endblock %}
 </body>
 </html>
