@@ -40,11 +40,15 @@ div.login-form {
   body {
     font-family: 'Ubuntu', sans-serif;
   }
+  .errorlist {
+    list-style: none;
+    color: red;
+}
   </style>
 <nav class="navbar navbar-default">
   <div class="container-fluid">
     <div class="navbar-header">
-      <a class="navbar-brand" href="">TravelOne</a>
+      <a class="navbar-brand" href=""><span class="glyphicon glyphicon-map-marker"></span> TravelOne</a>
     </div>
     <ul class="nav navbar-nav">
       <li><a href="{% url 'check'%}">Home</a></li>
@@ -55,7 +59,10 @@ div.login-form {
     </ul>
   </div>
 </nav>
-  
+  {% if form.errors %}
+  <span style= "color:red"><p>Please check your inputs</p></span>
+   {% else %}
+   {% endif %}
   <div class="group-form" align="center">
   <body background="http://www.matcl.com/files/attach/images/2791205/082/807/002/5be5e7d147f7457645d1dc5133b83f72.jpg"
   <br><br><br><br><br><br><br><br><br>

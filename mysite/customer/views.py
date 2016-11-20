@@ -13,6 +13,30 @@ def index(request):
 
 def check(request):
 	return render (request, "login_done.html")
+def confirm(request):
+	config = {
+  	"apiKey": "AIzaSyDJBkHwuCdQuaeeS2GsZ8bYHoV8L2jbb2Q",
+  	"authDomain": "travelone-e43cb.firebaseapp.com",
+  	"databaseURL": "https://travelone-e43cb.firebaseio.com/",
+  	"storageBucket": "travelone-e43cb.appspot.com"
+	}
+	firebase = pyrebase.initialize_app(config)
+	if request.method == 'POST':
+		form = ConfirmForm(request.POST)
+		if form.is_valid():
+			location = form['location'].value()
+			hotel = form['hotel'].value()
+			price = form['price'].value()
+			gid = request.session['GID']
+			data={"hotel": hotel, "location": location, "price":price}
+			db = firebase.database()
+			db.child('group').child(gid).child("request").update(data)
+			size = len(request.session['invitee'])
+			price = int(price)/int(size)
+			return render(request, "confirmed_group.html", {"size":size,"title":request.session['TITLE'], "owner":request.session['OWNER'], "gid":request.session['GID'],"hotel":hotel, "location":location,"names":request.session['invitee'],"price":price})
+	else:
+		form = ConfirmForm()
+	return render(request, "manage_group.html", {"form": form} )
 
 def transfer(request):
 	if request.method == 'POST':
@@ -40,11 +64,11 @@ def transfer(request):
 			r = requests.get(url)
 			print(r.json())
 			a = r.json()
-		
+			print(a)
 			print(a['balance'])	
 		
 			if response.status_code != 404:
-				return render(request, 'transfer_success.html', {'payee_id':payee_id, 'amount':amount, "balance": a['balance']})
+				return render(request, 'transfer_success.html', {'payee_id':payee_id, 'amount':amount, "balance": a['balance'], "nickname":a['nickname']})
 			else:
 				return HttpResponse("Invalid inputs")
 			print("response: " , response.status_code)
@@ -172,9 +196,22 @@ def GroupView(request):
 			key = list(objj)
 			for i in range(0, len(key)):
 				names.append(objj[key[i]]['inviteeName'])
+	hotel = []
+	groups = db.child("hotel").get()
+	for g in groups.each():
+		hotel.append(g.val())
+	location = []
+	groups = db.child("location").get()
+	for g in groups.each():
+		location.append(g.val())
+
+
 	print(names)
 	print(request.session['GID'])
-	return render(request,'manage_group.html', {'gid':request.session['GID'], 'title':request.session['TITLE'], 'owner':request.session['OWNER'], 'names':names})
+
+	request.session['invitee'] = names
+	form = ConfirmForm()
+	return render(request,'manage_group.html', {'gid':request.session['GID'], 'title':request.session['TITLE'], 'owner':request.session['OWNER'], 'names':names, 'location':location, 'hotel':hotel, 'form':form})
             
 
 
@@ -241,7 +278,7 @@ def login(request):
 
 
 
-			return render(request, 'login_done.html', {'myName': myName})
+			return render(request, 'login_done.html', {'myName': request.session['myName']})
 	else:
 		form = UserInfo()
 	return render(request, 'login.html', {'form': form})

@@ -12,10 +12,17 @@
 div.happy {
     margin-top: 220px
 } 
+.errorlist {
+    list-style: none;
+    color: red;
+}
 </style>
 {% block content %}
 <center><body background="http://appdata.hungryapp.co.kr/data_file/data_img_m/201502/10/1423580240_Nr4eu5HZAs.jpg"></center>
-
+ {% if form.errors %}
+ 		<p><center><span style= "color:red">Please check your input.</span></center></p>
+ {% else %}
+ {% endif %}
 <div class="happy">
  	<h2><center>Reset Password {% bootstrap_icon "alert" %}</center></h2>
  	<br><br><br>

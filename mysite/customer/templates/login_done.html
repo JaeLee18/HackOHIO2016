@@ -14,11 +14,15 @@
   body {
     font-family: 'Ubuntu', sans-serif;
   }
+  .errorlist {
+    list-style: none;
+    color: red;
+}
   </style>
 <nav class="navbar navbar-default">
   <div class="container-fluid">
     <div class="navbar-header">
-      <a class="navbar-brand" href="#">TravelOne</a>
+      <a class="navbar-brand" href="#"><span class="glyphicon glyphicon-map-marker"></span> TravelOne</a>
     </div>
     <ul class="nav navbar-nav">
       <li class="active"><a href="{% url 'check'%}">Home</a></li>
@@ -34,8 +38,11 @@
 <div class="container">
 <body background="http://cfile2.uf.tistory.com/image/18214C4850ADABCE283E6B">
 <br><br><br><br><br><br><br><br><br><br>
-  <h1><center><span style= "color:black">Good Day,</span> {{myName}}!</center></h1>
-  <p><center>Invite?, Group?, Bank?</center></p>
+  <h1><center><span style= "color:black">Good Day </span> {{myName}}!</center></h1>
+  <br><br><br>
+  <p><center>Invite your friends?</center></p>
+  <p><center>Make your own Group?</center></p>
+  <p><center>Things to do with your Bank?</center></p>
 </div>
   
 </body>

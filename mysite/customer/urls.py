@@ -11,5 +11,6 @@ urlpatterns = [
     url(r'^JoinGroup/$', views.JoinGroup, name = 'JoinGroup'),
     url(r'^bankConnect/$', views.ConnectBank, name = 'bankConnect'),
     url(r'^transfer/$', views.transfer, name = 'transfer'),
-    url(r'^home/$', views.check, name = 'check')
+    url(r'^home/$', views.check, name = 'check'),
+    url(r'^confirm/$', views.confirm, name= 'confirm')
 ]

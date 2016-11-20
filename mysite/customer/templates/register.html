@@ -12,11 +12,18 @@
 div.jay_way {
     margin-top: 200px
 } 
+.errorlist {
+    list-style: none;
+    color: red;
+}
 </style>
 {% block content %}
 <center><body background="http://cfile29.uf.tistory.com/image/1627D54D50AB0E0D294E79"></center>
 
-
+{% if form.errors %}
+<p><center><span style= "color:red">Please check your input.</span></center></p>
+{% else %}
+{% endif %}
 	<div class = "jay_way" align = "center">
 
 		 <h2><center>Registeration{% bootstrap_icon "user" %}<center></h2>

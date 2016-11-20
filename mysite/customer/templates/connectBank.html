@@ -1,3 +1,17 @@
+{# Load the tag library #}
+{% load bootstrap3 %}
+
+{# Load CSS and JavaScript #}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+
+{# Display django.contrib.messages as Bootstrap alerts #}
+{% bootstrap_messages %}
+
+
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,9 +21,18 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
 </head>
 <body>
-
+<style>
+  body {
+    font-family: 'Ubuntu', sans-serif;
+  }
+  .errorlist {
+    list-style: none;
+    color: red;
+}
+  </style>
 <nav class="navbar navbar-default">
   <div class="container-fluid">
     <div class="navbar-header">
@@ -26,15 +49,17 @@
 </nav>
   
 <div class="container">
-     <h2><center>Connect to your bank account</center></h2>
+<br><br><br><br><br><br><br><br>
+<body background="http://www.matcl.com/files/attach/images/2791205/082/807/002/4d5c4480f1c31e529c362b5c1807f78a.JPG">
+     <h1><center>{% bootstrap_icon "paperclip" %}Connect to your bank account</center></h1>
      <br><br><br>
       <form action="{% url 'bankConnect' %}" method="post" class="form">
         
         {% csrf_token %}
-        {{ form.as_p }}
-      <button type="submit" value="Submit">Submit</button>
+        <center>{{ form.as_p }}</center>
+      <center><button type="submit" value="Submit">Submit</button></center>
       </form>
 </div>
-	
+  
 </body>
 </html>

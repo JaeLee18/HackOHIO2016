@@ -1,3 +1,15 @@
+{# Load the tag library #}
+{% load bootstrap3 %}
+
+{# Load CSS and JavaScript #}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+
+{# Display django.contrib.messages as Bootstrap alerts #}
+{% bootstrap_messages %}
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,9 +19,18 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
 </head>
 <body>
-
+<style>
+  body {
+    font-family: 'Ubuntu', sans-serif;
+  }
+  .errorlist {
+    list-style: none;
+    color: red;
+}
+  </style>
 <nav class="navbar navbar-default">
   <div class="container-fluid">
     <div class="navbar-header">
@@ -26,11 +47,13 @@
 </nav>
   
 <div class="container">
-     <h2><center>Transfer Summary</center></h2>
+<body background="http://cfile5.uf.tistory.com/image/223A0742526B94E73071E7">
+<br><br><br><br><br><br>
+     <h2><center>Transfer Summary {%bootstrap_icon "ok"%}</center></h2>
      <br><br><br>
-     <p>Your transfer to {{payee_id}} with ${{amount}} is succesfully made.</p>
-     <p>Your current balance is ${{balance}}</p>
+     <center><h3>Your transfer to {{payee_id}} with <u>${{amount}}</u> is succesfully made.</h3></center>
+     <center><h3>Your current balance is ${{balance}}</h3></center>
 </div>
-	
+  
 </body>
 </html>

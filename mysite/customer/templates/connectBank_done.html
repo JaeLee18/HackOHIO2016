@@ -7,9 +7,18 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
 </head>
 <body>
-
+<style>
+  body {
+    font-family: 'Ubuntu', sans-serif;
+  }
+  .errorlist {
+    list-style: none;
+    color: red;
+}
+  </style>
 <nav class="navbar navbar-default">
   <div class="container-fluid">
     <div class="navbar-header">
@@ -26,14 +35,18 @@
 </nav>
   
 <div class="container">
-     <h2><center>Bank account Information</center></h2>
-     <h1>nickname: {{myDict.nickname}}</h1>
-     <h1>type: {{myDict.type}}</h1>
-     <h1>reward: {{myDict.rewards}}</h1>
-     <h1>balance: ${{myDict.balance}}</h1>
-     <h1>account number: {{myDict.account_number}}</h1>
-     <a href = "{% url 'transfer' %}">Make Transfer</a>
+
+<br><br><br><br><br>
+     <h2><u><center>Bank account Information</center></u></h2>
+     <br>
+     <h3><center>Nickname: {{myDict.nickname}}</center></h3>
+     <h3><center>Type: {{myDict.type}}</center></h3>
+     <h3><center>Reward: {{myDict.rewards}}</center></h3>
+     <h3><center>Balance: ${{myDict.balance}}</center></h3>
+     <h3><center>Account number: {{myDict.account_number}}</center></h3>
+     <br>
+     <center><p><a href = "{% url 'transfer' %}">Make Transfer</a></p></center>
 </div>
-	
+  
 </body>
 </html>

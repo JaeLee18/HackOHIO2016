@@ -1,3 +1,14 @@
+{# Load the tag library #}
+{% load bootstrap3 %}
+
+{# Load CSS and JavaScript #}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+
+{# Display django.contrib.messages as Bootstrap alerts #}
+{% bootstrap_messages %}
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,9 +18,18 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
 </head>
 <body>
-
+<style>
+  body {
+    font-family: 'Ubuntu', sans-serif;
+  }
+  .errorlist {
+    list-style: none;
+    color: red;
+}
+  </style>
 <nav class="navbar navbar-default">
   <div class="container-fluid">
     <div class="navbar-header">
@@ -26,14 +46,20 @@
 </nav>
   
 <div class="container">
-     <h2><center>Transfer</center></h2>
+<body background="http://cfile4.uf.tistory.com/image/250C2242526B94E406DDA0">
+<br><br><br><br><br>
+ {% if form.errors %}
+    <p><center><span style= "color:red">Please check your input.</span></center></p>
+    {% else %}
+     <h1><center>Transfer{%bootstrap_icon "flash"%}</center></h1>
      <br><br><br>
+     {% endif %}
       <form action="{% url 'transfer' %}" method="post" class="form">
         {% csrf_token %}
-        {{ form.as_p }}
-      <button type="submit" value="Submit">Submit!</button>
+        <center>{{ form.as_p }}</center>
+      <center><button type="submit" value="Submit">Submit!</button></center>
       </form>
 </div>
-	
+  
 </body>
 </html>

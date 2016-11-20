@@ -23,11 +23,15 @@
   body {
     font-family: 'Ubuntu', sans-serif;
   }
+  .errorlist {
+    list-style: none;
+    color: red;
+}
   </style>
 <nav class="navbar navbar-default">
   <div class="container-fluid">
     <div class="navbar-header">
-      <a class="navbar-brand" href="#">TravelOne</a>
+      <a class="navbar-brand" href="#"><span class="glyphicon glyphicon-map-marker"></span> TravelOne</a>
     </div>
     <ul class="nav navbar-nav">
       <li><a href="{% url 'check'%}">Home</a></li>
@@ -50,12 +54,22 @@
 
 
 <div class="containers" align ='right' style = "list-style-type:square;margin-top: -150px;margin-right: 300px;font-size: 15px" font-family: 'Delius Unicase', cursive;>
-  <h2>Invitees:</h2>
+  <h2>Inviteesa:</h2>
   {% for n in names %}
-  <li>{{n}}</li>
+  <option>{{n}}</option>
   {% endfor %}
-
 </div>
-  
+{% if form.errors %}
+<p><center><span style= "color:red">Please check your input.</span></center></p>
+{% else %}
+{% endif %}
+    <div class="cofirm">
+        <form action="{% url 'confirm' %}" method="post">
+          {{ form.as_p }}
+          {% csrf_token %}
+          <p><center><input type="submit" value="Submit"></center></p>
+        </form>
+    </div>
+
 </body>
 </html>
