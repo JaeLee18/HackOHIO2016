@@ -25,10 +25,10 @@
       <a class="navbar-brand" href="#">TravelOne</a>  
     </div>
     <ul class="nav navbar-nav">
-      <li><a href="#">Home</a></li>
+      <li><a href="{% url 'check'%}">Home</a></li>
       <li><a href="{% url 'makeGroup' %}">Make a Group</a></li>
       <li><a href ="{% url 'JoinGroup' %}">Join to your Group</a></li>
-      <li><a href="#">Connect to your Bank</a></li>
+      <li><a href="{% url 'bankConnect' %}">Bank Summary</a></li>
       <li class="active"><a href="{% url 'GroupView' %}">Groups</a></li>
     </ul>
   </div>

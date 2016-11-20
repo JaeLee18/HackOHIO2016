@@ -1,26 +1,5 @@
-{# Load the tag library #}
-{% load bootstrap3 %}
-
-{# Load CSS and JavaScript #}
-{% bootstrap_css %}
-{% bootstrap_javascript %}
-
-{# Display django.contrib.messages as Bootstrap alerts #}
-{% bootstrap_messages %}
-
-
-
 <!DOCTYPE html>
 <html lang="en">
-<style>
-div.login-form {
-    margin-top: 200px
-} 
-.error input, .error select {
-    border: 2px red solid;
-}
-
-</style>
 <head>
   <title>Bootstrap Case</title>
   <meta charset="utf-8">
@@ -37,24 +16,24 @@ div.login-form {
       <a class="navbar-brand" href="#">TravelOne</a>
     </div>
     <ul class="nav navbar-nav">
-      <li><a href="{% url 'check'%}">Home</a></li>
-      <li class="active"><a href="{% url 'makeGroup' %}">Make a Group</a></li>
+      <li><a href="{% url 'login' %}">Home</a></li>
+      <li><a href="{% url 'makeGroup' %}">Make a Group</a></li>
       <li><a href="{% url 'JoinGroup' %}">Join to your Group</a></li>
-      <li><a href="{% url 'bankConnect' %}">Bank Summary</a></li>
+      <li class="active"><a href="{% url 'bankConnect' %}">Bank Summary</a></li>
       <li><a href="{% url 'GroupView' %}">Groups</a></li>
     </ul>
   </div>
 </nav>
   
 <div class="container">
-  <h3>Good Day, {{myName}}!</h3>
-  <p>Invite?, Group?, Bank?</p>
+     <h2><center>Bank account Information</center></h2>
+     <h1>nickname: {{myDict.nickname}}</h1>
+     <h1>type: {{myDict.type}}</h1>
+     <h1>reward: {{myDict.rewards}}</h1>
+     <h1>balance: ${{myDict.balance}}</h1>
+     <h1>account number: {{myDict.account_number}}</h1>
+     <a href = "{% url 'transfer' %}">Make Transfer</a>
 </div>
-	{% block content %}
-	<div class="login-form" align="center">
-		 <h2><center>TravelOne</center></h2>
-		 Your group {{title}} is created!
-	</div>
-{% endblock %}
+	
 </body>
 </html>

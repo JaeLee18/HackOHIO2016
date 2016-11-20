@@ -33,36 +33,43 @@ div.login-form {
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
 </head>
 <body>
-
+  <style>
+  body {
+    font-family: 'Ubuntu', sans-serif;
+  }
+  </style>
 <nav class="navbar navbar-default">
   <div class="container-fluid">
     <div class="navbar-header">
       <a class="navbar-brand" href="">TravelOne</a>
     </div>
     <ul class="nav navbar-nav">
-      <li><a href="#">Home</a></li>
+      <li><a href="{% url 'check'%}">Home</a></li>
       <li class="active"><a href="{% url 'makeGroup' %}">Make a Group</a></li>
       <li><a href="{% url 'JoinGroup' %}">Join to your Group</a></li>
-      <li><a href="#">Connect to your Bank</a></li>
+      <li><a href="{% url 'bankConnect' %}">Bank Summary</a></li>
       <li><a href="{% url 'GroupView' %}">Groups</a></li>
     </ul>
   </div>
 </nav>
   
-	<div class="group-form" align="center">
-		 <h2><center>Form your Group</center></h2>
-		 <br><br><br>
-			<form action="{% url 'makeGroup' %}" method="post" class="form">
-				
-				{% csrf_token %}
-				{{ form.as_p }}
-			<button type="submit" value="Submit">Submit</button>
-			</form>
+  <div class="group-form" align="center">
+  <body background="http://www.matcl.com/files/attach/images/2791205/082/807/002/5be5e7d147f7457645d1dc5133b83f72.jpg"
+  <br><br><br><br><br><br><br><br><br>
+     <h1><center>Form your Group {% bootstrap_icon "plus" %}</center></h1>
+     <br><br>
+      <form action="{% url 'makeGroup' %}" method="post" class="form">
+        
+        {% csrf_token %}
+        {{ form.as_p }}
+      <button type="submit" value="Submit">Submit</button>
+      </form>
 
 
-	</div>
+  </div>
 {% endblock %}
 
 </body>

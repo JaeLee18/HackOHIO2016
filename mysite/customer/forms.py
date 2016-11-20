@@ -21,3 +21,11 @@ class InviteFriends(forms.Form):
 
 class GetGroup(forms.Form):
 	groupID = forms.CharField()
+
+class CustomerId(forms.Form):
+	customerID = forms.CharField()
+
+class TransferForm(forms.Form):
+	amount = forms.CharField()
+	payee_id = forms.CharField()
+	description = forms.CharField()

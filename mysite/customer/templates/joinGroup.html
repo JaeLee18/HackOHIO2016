@@ -16,7 +16,14 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
 </head>
+
+  <style>
+  body {
+    font-family: 'Ubuntu', sans-serif;
+  }
+  </style>
 <body>
 
 <nav class="navbar navbar-default">
@@ -25,29 +32,31 @@
       <a class="navbar-brand" href="#">TravelOne</a>  
     </div>
     <ul class="nav navbar-nav">
-      <li><a href="#">Home</a></li>
+      <li><a href="{% url 'check'%}">Home</a></li>
       <li><a href="{% url 'makeGroup' %}">Make a Group</a></li>
       <li class="active"><a href ="{% url 'JoinGroup' %}">Join to your Group</a></li>
-      <li><a href="#">Connect to your Bank</a></li>
+      <li><a href="{% url 'bankConnect' %}">Bank Summary</a></li>
       <li ><a href="{% url 'GroupView' %}">Groups</a></li>
     </ul>
   </div>
 </nav>
   
 <div class="container">
-
+<body background="http://cfile29.uf.tistory.com/image/1557604C50ADABD31D7799">
 {% block content %}
- <h1>Reset PassWord</h1>
+<br><br><br><br><br><br><br><br>
+ <h1><center> {% bootstrap_icon "exclamation-sign" %} Find your Group</center></h1>
+ <br><br>
   <div class="login-form">
       <form action="{% url 'JoinGroup' %}" method="post">
-        {{ form.as_p }}
+        <center>{{ form.as_p }}</center>
         {% csrf_token %}
-        <p><input type="submit" value="Join"></p>
+        <p><center><input type="submit" value="Join"></center></p>
       </form>
   </div>
 {% endblock %}
 
 </div>
-	
+  
 </body>
 </html>

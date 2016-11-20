@@ -16,34 +16,46 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
 </head>
-<body>
 
+  <style>
+  body {
+    font-family: 'Ubuntu', sans-serif;
+  }
+  </style>
 <nav class="navbar navbar-default">
   <div class="container-fluid">
     <div class="navbar-header">
       <a class="navbar-brand" href="#">TravelOne</a>
     </div>
     <ul class="nav navbar-nav">
-      <li><a href="#">Home</a></li>
+      <li><a href="{% url 'check'%}">Home</a></li>
       <li><a href="{% url 'makeGroup' %}">Make a Group</a></li>
       <li><a href ="{% url 'JoinGroup' %}">Join to your Group</a></li>
-      <li><a href="#">Connect to your Bank</a></li>
+      <li><a href="{% url 'bankConnect' %}">Bank Summary</a></li>
       <li class="active"><a href="{% url 'GroupView' %}">Groups</a></li>
     </ul>
   </div>
 </nav>
-  
-<div class="container">
+<body>
+<body background="http://www.matcl.com/files/attach/images/2791205/936/827/002/3242cecd541aec083cd45b249cc49ea7.png">
+<div class="container" align ='left' style = "margin-left: 250px;margin-top: 80px" font-family: 'Delius Unicase', cursive; >
+  <br><br><br>
   <h3>Group Title : {{title}}</h3>
-  <h2>Owner: {{owner}}</h2>
-  <h1>Invitation Code: {{gid}}</h1>
-  <h1>Invitees:</h1>
+  
+  <h1>{% bootstrap_icon "star-empty" %}Owner: {{owner}}</h2>
+  <br>
+  <p>Invitation Code: {{gid}}</p>
+
+
+<div class="containers" align ='right' style = "list-style-type:square;margin-top: -150px;margin-right: 300px;font-size: 15px" font-family: 'Delius Unicase', cursive;>
+  <h2>Invitees:</h2>
   {% for n in names %}
   <li>{{n}}</li>
   {% endfor %}
 
 </div>
-	
+  
 </body>
 </html>

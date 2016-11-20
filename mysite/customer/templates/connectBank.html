@@ -1,26 +1,5 @@
-{# Load the tag library #}
-{% load bootstrap3 %}
-
-{# Load CSS and JavaScript #}
-{% bootstrap_css %}
-{% bootstrap_javascript %}
-
-{# Display django.contrib.messages as Bootstrap alerts #}
-{% bootstrap_messages %}
-
-
-
 <!DOCTYPE html>
 <html lang="en">
-<style>
-div.login-form {
-    margin-top: 200px
-} 
-.error input, .error select {
-    border: 2px red solid;
-}
-
-</style>
 <head>
   <title>Bootstrap Case</title>
   <meta charset="utf-8">
@@ -38,23 +17,24 @@ div.login-form {
     </div>
     <ul class="nav navbar-nav">
       <li><a href="{% url 'check'%}">Home</a></li>
-      <li class="active"><a href="{% url 'makeGroup' %}">Make a Group</a></li>
+      <li><a href="{% url 'makeGroup' %}">Make a Group</a></li>
       <li><a href="{% url 'JoinGroup' %}">Join to your Group</a></li>
-      <li><a href="{% url 'bankConnect' %}">Bank Summary</a></li>
+      <li class="active"><a href="{% url 'bankConnect' %}">Bank Summary</a></li>
       <li><a href="{% url 'GroupView' %}">Groups</a></li>
     </ul>
   </div>
 </nav>
   
 <div class="container">
-  <h3>Good Day, {{myName}}!</h3>
-  <p>Invite?, Group?, Bank?</p>
+     <h2><center>Connect to your bank account</center></h2>
+     <br><br><br>
+      <form action="{% url 'bankConnect' %}" method="post" class="form">
+        
+        {% csrf_token %}
+        {{ form.as_p }}
+      <button type="submit" value="Submit">Submit</button>
+      </form>
 </div>
-	{% block content %}
-	<div class="login-form" align="center">
-		 <h2><center>TravelOne</center></h2>
-		 Your group {{title}} is created!
-	</div>
-{% endblock %}
+	
 </body>
 </html>
