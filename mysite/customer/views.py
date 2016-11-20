@@ -7,6 +7,7 @@ import pyrebase
 def index(request):
 	return render(request, 'index.html')
 
+
 def check(request):
 	return render ("index.html")
 
@@ -37,3 +38,6 @@ def register(request):
 	else:
 		form = LoginForm()
 	return render(request, 'register.html', {'form': form})
+
+
+
