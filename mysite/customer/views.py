@@ -9,6 +9,70 @@ def index(request):
 
 def check(request):
 	return render ("index.html")
+def pw_reset(request):
+	config = {
+  	"apiKey": "AIzaSyDJBkHwuCdQuaeeS2GsZ8bYHoV8L2jbb2Q",
+  	"authDomain": "travelone-e43cb.firebaseapp.com",
+  	"databaseURL": "https://travelone-e43cb.firebaseio.com/",
+  	"storageBucket": "travelone-e43cb.appspot.com"
+	}
+	firebase = pyrebase.initialize_app(config)
+
+	# Get a reference to the auth service
+	auth = firebase.auth()
+	if request.method == 'POST':
+		form = PasswordReset(request.POST)
+		if form.is_valid():
+			email = form['username'].value()
+			print (email)
+			auth.send_password_reset_email(email)
+			return render(request, 'pw_reset_done.html', {'email':email})
+	else:
+		form = PasswordReset()
+	return render(request, 'pw_reset.html', {'form': form}) 
+
+def login(request):
+	config = {
+  	"apiKey": "AIzaSyDJBkHwuCdQuaeeS2GsZ8bYHoV8L2jbb2Q",
+  	"authDomain": "travelone-e43cb.firebaseapp.com",
+  	"databaseURL": "https://travelone-e43cb.firebaseio.com/",
+  	"storageBucket": "travelone-e43cb.appspot.com"
+	}
+	firebase = pyrebase.initialize_app(config)
+
+	# Get a reference to the auth service
+	auth = firebase.auth()
+	db = firebase.database()
+	if request.method == 'POST':
+		form = UserInfo(request.POST)
+		if form.is_valid():
+			email = form['username'].value()
+			
+			password = form['password'].value()
+			
+			user = auth.sign_in_with_email_and_password(email, password)
+			# Get all users
+			myuser = db.child("users").get()
+			# Get an email from logged in user
+			email = user.get('email')
+			uid = ""
+			myName = ""
+			for u in myuser.each():
+				for key,value in u.val().items():
+					if email == value:
+						uid = u.key()
+			for u in myuser.each():
+				if u.key() == uid:
+					for key,value in u.val().items():
+						if key == "name":
+							myName = value
+
+
+
+			return render(request, 'login_done.html', {'myName': myName})
+	else:
+		form = UserInfo()
+	return render(request, 'login.html', {'form': form})
 
 def register(request):
 	config = {
@@ -22,18 +86,24 @@ def register(request):
 	# Get a reference to the auth service
 	auth = firebase.auth()
 
+	# Get a db 
+	db = firebase.database()
+
 	
 
 	if request.method == 'POST':
 		form = LoginForm(request.POST)
 		if form.is_valid():
 			email = form['username'].value()
-			print (email)
+			#print (email)
 			password = form['password'].value()
-			print (password)
+			#print (password)
 			# Log the user in
+			name = form['name'].value()
 			user = auth.create_user_with_email_and_password(email, password)
-			return render(request, 'register_done.html')
+			data = {"username": email, "name": name}
+			db.child("users").push(data)
+			return render(request, 'register_done.html', {'name': name})
 	else:
 		form = LoginForm()
 	return render(request, 'register.html', {'form': form})

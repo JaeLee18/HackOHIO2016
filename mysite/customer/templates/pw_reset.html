@@ -1,0 +1,11 @@
+
+{% block content %}
+ <h1>Reset PassWord</h1>
+	<div class="login-form">
+			<form action="{% url 'password_reset' %}" method="post">
+				{{ form.as_p }}
+				{% csrf_token %}
+				<p><input type="submit" value="Request My new PassWord"></p>
+			</form>
+	</div>
+{% endblock %}

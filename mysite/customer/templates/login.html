@@ -1,0 +1,41 @@
+{# Load the tag library #}
+{% load bootstrap3 %}
+
+{# Load CSS and JavaScript #}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+
+{# Display django.contrib.messages as Bootstrap alerts #}
+{% bootstrap_messages %}
+
+<style>
+div.login-form {
+    margin-top: 200px
+} 
+</style>
+{% block content %}
+
+ {% if form.errors %}
+ 	<p>Please check your password or username.</p>
+ {% else %}
+ 	<p></p>
+ {% endif %}
+	<div class="login-form" align="center">
+		 <h2><center>TravelOne</center></h2>
+		 <br><br><br>
+			<form action="{% url 'login' %}" method="post" class="form">
+				
+				{% csrf_token %}
+				{{ form.as_p }}
+				</br>
+				<input type="hidden" name="next" value="{{ next }}" />
+			
+				<button type="submit" value="Log-in">Log-In</button>
+
+
+				</br></br></br>
+				<p><a href="{% url "password_reset" %}">Forgotten your password?</a></p>
+				<p><a href="{% url "register" %}">Register here!</a></p>
+			</form>
+	</div>
+{% endblock %}
