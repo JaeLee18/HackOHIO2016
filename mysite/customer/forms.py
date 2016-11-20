@@ -15,3 +15,9 @@ class PasswordReset(forms.Form):
 
 class GroupForm(forms.Form):
 	groupTitle = forms.CharField()
+
+class InviteFriends(forms.Form):
+	Invite = forms.CharField(widget = forms.EmailInput)
+
+class GetGroup(forms.Form):
+	groupID = forms.CharField()

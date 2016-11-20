@@ -7,20 +7,8 @@
 
 {# Display django.contrib.messages as Bootstrap alerts #}
 {% bootstrap_messages %}
-
-
-
 <!DOCTYPE html>
 <html lang="en">
-<style>
-div.login-form {
-    margin-top: 200px
-} 
-.error input, .error select {
-    border: 2px red solid;
-}
-
-</style>
 <head>
   <title>Bootstrap Case</title>
   <meta charset="utf-8">
@@ -38,23 +26,24 @@ div.login-form {
     </div>
     <ul class="nav navbar-nav">
       <li><a href="#">Home</a></li>
-      <li class="active"><a href="{% url 'makeGroup' %}">Make a Group</a></li>
-      <li><a href="{% url 'JoinGroup' %}">Join to your Group</a></li>
+      <li><a href="{% url 'makeGroup' %}">Make a Group</a></li>
+      <li><a href ="{% url 'JoinGroup' %}">Join to your Group</a></li>
       <li><a href="#">Connect to your Bank</a></li>
-      <li><a href="{% url 'GroupView' %}">Groups</a></li>
+      <li class="active"><a href="{% url 'GroupView' %}">Groups</a></li>
     </ul>
   </div>
 </nav>
   
 <div class="container">
-  <h3>Good Day, {{myName}}!</h3>
-  <p>Invite?, Group?, Bank?</p>
+  <h3>Group Title : {{title}}</h3>
+  <h2>Owner: {{owner}}</h2>
+  <h1>Invitation Code: {{gid}}</h1>
+  <h1>Invitees:</h1>
+  {% for n in names %}
+  <li>{{n}}</li>
+  {% endfor %}
+
 </div>
-	{% block content %}
-	<div class="login-form" align="center">
-		 <h2><center>TravelOne</center></h2>
-		 Your group {{title}} is created!
-	</div>
-{% endblock %}
+	
 </body>
 </html>

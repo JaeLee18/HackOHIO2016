@@ -7,20 +7,8 @@
 
 {# Display django.contrib.messages as Bootstrap alerts #}
 {% bootstrap_messages %}
-
-
-
 <!DOCTYPE html>
 <html lang="en">
-<style>
-div.login-form {
-    margin-top: 200px
-} 
-.error input, .error select {
-    border: 2px red solid;
-}
-
-</style>
 <head>
   <title>Bootstrap Case</title>
   <meta charset="utf-8">
@@ -34,27 +22,32 @@ div.login-form {
 <nav class="navbar navbar-default">
   <div class="container-fluid">
     <div class="navbar-header">
-      <a class="navbar-brand" href="#">TravelOne</a>
+      <a class="navbar-brand" href="#">TravelOne</a>  
     </div>
     <ul class="nav navbar-nav">
       <li><a href="#">Home</a></li>
-      <li class="active"><a href="{% url 'makeGroup' %}">Make a Group</a></li>
-      <li><a href="{% url 'JoinGroup' %}">Join to your Group</a></li>
+      <li><a href="{% url 'makeGroup' %}">Make a Group</a></li>
+      <li class="active"><a href ="{% url 'JoinGroup' %}">Join to your Group</a></li>
       <li><a href="#">Connect to your Bank</a></li>
-      <li><a href="{% url 'GroupView' %}">Groups</a></li>
+      <li ><a href="{% url 'GroupView' %}">Groups</a></li>
     </ul>
   </div>
 </nav>
   
 <div class="container">
-  <h3>Good Day, {{myName}}!</h3>
-  <p>Invite?, Group?, Bank?</p>
-</div>
-	{% block content %}
-	<div class="login-form" align="center">
-		 <h2><center>TravelOne</center></h2>
-		 Your group {{title}} is created!
-	</div>
+
+{% block content %}
+ <h1>Reset PassWord</h1>
+  <div class="login-form">
+      <form action="{% url 'JoinGroup' %}" method="post">
+        {{ form.as_p }}
+        {% csrf_token %}
+        <p><input type="submit" value="Join"></p>
+      </form>
+  </div>
 {% endblock %}
+
+</div>
+	
 </body>
 </html>

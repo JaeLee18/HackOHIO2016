@@ -7,4 +7,6 @@ urlpatterns = [
     url(r'^password-reset/$',views.pw_reset,
 		name='password_reset'),
     url(r'^makeGroup/$',views.makeGroup, name='makeGroup'),
+    url(r'^group/$', views.GroupView, name = 'GroupView'),
+    url(r'^JoinGroup/$', views.JoinGroup, name = 'JoinGroup')
 ]

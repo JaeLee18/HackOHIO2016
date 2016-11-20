@@ -3,12 +3,94 @@ from django.http import HttpResponse
 from .forms import *
 import pyrebase
 from django.contrib.sessions.models import Session
+from django.core.mail import EmailMessage
 # Create your views here.
 def index(request):
 	return render(request, 'index.html')
 
 def check(request):
 	return render ("index.html")
+def JoinGroup(request):
+	config = {
+  	"apiKey": "AIzaSyDJBkHwuCdQuaeeS2GsZ8bYHoV8L2jbb2Q",
+  	"authDomain": "travelone-e43cb.firebaseapp.com",
+  	"databaseURL": "https://travelone-e43cb.firebaseio.com/",
+  	"storageBucket": "travelone-e43cb.appspot.com"
+	}
+	firebase = pyrebase.initialize_app(config)
+
+	# Get a reference to the auth service
+	auth = firebase.auth()
+
+	uid = request.session['uid']
+	db = firebase.database()
+	groups = db.child("group").get()
+	groupID = ""
+	myTitle = ""
+	owner = ""
+	if request.method == 'POST':
+		form = GetGroup(request.POST)
+		if form.is_valid():
+			code = form['groupID'].value()
+			searched = False
+			for g in groups.each():
+				if g.key() == code:
+					searched = True
+					myTitle = g.val()['title']
+					owner = g.val()['name']
+					request.session['OWNER'] = owner
+					request.session['TITLE'] = myTitle
+					groupId = g.key()
+					request.session['GID'] = groupId
+					data = {"inviteeName": request.session['myName']}
+					db.child("group").child(groupId).child("invitee").push(data)
+					print("myname: " ,request.session['myName'])
+					return render(request, 'invitation_success.html', {"title":myTitle, "owner":owner, "gid":groupId})
+			if searched == False:
+				return HttpResponse("Invalid Group code")
+	else:
+		form = GetGroup()
+	return render(request, 'joinGroup.html', {'form': form}) 
+
+def GroupView(request):
+	config = {
+  	"apiKey": "AIzaSyDJBkHwuCdQuaeeS2GsZ8bYHoV8L2jbb2Q",
+  	"authDomain": "travelone-e43cb.firebaseapp.com",
+  	"databaseURL": "https://travelone-e43cb.firebaseio.com/",
+  	"storageBucket": "travelone-e43cb.appspot.com"
+	}
+	firebase = pyrebase.initialize_app(config)
+
+	# Get a reference to the auth service
+	auth = firebase.auth()
+
+	uid = request.session['uid']
+	db = firebase.database()
+	groups = db.child("group").get()
+	#print (groups.val())
+	groupID = ""
+	myTitle = ""
+	owner = ""
+	for u in groups.val():
+		for g in groups.each():
+			for key, value in g.val().items():
+				if uid == value:
+					groupID = u
+					myTitle = g.val()['title']
+					owner = g.val()['name']
+	names = []
+	for g in groups.each():
+		obj = g.val()
+		objj = obj.get('invitee')
+		key = objj.keys()
+		key = list(objj)
+		for i in range(0, len(key)):
+			names.append(objj[key[i]]['inviteeName'])
+    
+	return render(request,'manage_group.html', {'gid':request.session['GID'], 'title':request.session['TITLE'], 'owner':request.session['OWNER'], 'names':names})
+            
+
+
 def pw_reset(request):
 	config = {
   	"apiKey": "AIzaSyDJBkHwuCdQuaeeS2GsZ8bYHoV8L2jbb2Q",
@@ -93,7 +175,7 @@ def makeGroup(request):
 		form = GroupForm(request.POST)
 		if form.is_valid():
 			title = form['groupTitle'].value()
-			data = {"groupOwnerUID" : uid, "title": title}
+			data = {"groupOwnerUID" : uid, "title": title, "name": myName}
 			db.child("group").push(data)	
 			return render(request, 'group_done.html', {'title': title, 'myName' : myName})
 	else:
@@ -115,7 +197,6 @@ def register(request):
 	db = firebase.database()
 
 	
-
 	if request.method == 'POST':
 		form = LoginForm(request.POST)
 		if form.is_valid():
